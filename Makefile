@@ -1,40 +1,5 @@
-
-# # CFLAGS = -Wall -Werror -Wextra  -Ilibft -g
-# CGLAGS = -g -I includes -g3 -I libft
-
-# LIBFT_TARGET = libft/libft.a
-
-# SRC_DIR = src
-# SRC_FILES = $(shell find src -name '*.c')
-# OBJS = $(SRC_FILES:.c=.o)
-
-# NAME = cub3d
-
-# all: $(NAME)
-
-# $(NAME): $(OBJS) $(LIBFT_TARGET)
-# 	gcc $(CFLAGS) $(OBJS) -L libft -l ft -l -o $(NAME)
-
-# %.o: %.c
-# 	gcc $(CFLAGS) -c $< -o $@
-
-# $(LIBFT_TARGET):
-# 	make -C libft
-
-# clean:
-# 	make clean -C libft
-# 	rm -f $(OBJS)
-
-# fclean: clean
-# 	make fclean -C libft
-# 	rm -f $(NAME)
-
-# re: fclean all
-
-
-# .PHONY: all clean fclean re leak
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g -I includes -I libft
+CFLAGS = -Wall -Wextra -Werror -g -I include -I libft
 
 # Nom de l'exécutable
 NAME = cub3d
@@ -62,6 +27,7 @@ $(NAME): $(OBJS) $(LIBFT_TARGET)
 
 # Compilation des fichiers objets
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@mkdir -p $(@D) # Crée le répertoire parent pour l'objet
 	@echo "🔨 Compiling $<..."
 	gcc $(CFLAGS) -c $< -o $@
 
@@ -89,9 +55,5 @@ fclean: clean
 # Rebuild complet
 re: fclean all
 
-# Test pour vérifier les fuites mémoire
-leak: all
-	@valgrind --leak-check=full --track-origins=yes ./$(NAME)
-
 # Marque les règles comme "phonie"
-.PHONY: all clean fclean re leak
+.PHONY: all clean fclean re
