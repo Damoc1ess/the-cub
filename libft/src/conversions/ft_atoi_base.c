@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "libft.h"
 
 int			validate_base(char *base);
-long int	calculate_power_of_base(char *str, char *base);
+long int	calculate_power_of_base(char *str, char	*base);
 long int	calcul_value(char chiffre, char *base);
 int			ft_atoi_base(char *str, char *base);
 long int	ft_recursive_power(long int nb, long int power);
-// int	verifinbase(char ctotest, char *base);
+//int	verifinbase(char ctotest, char *base);
 /*
 int	verifinbase(char ctotest, char *base)
 {
@@ -61,30 +61,30 @@ int	validate_base(char *base)
 		{
 			if (base[i] == base[j])
 				return (0);
-			i++;
+			i ++;
 		}
-		j++;
+		j ++;
 	}
 	if (j <= 1)
 		return (0);
 	return (j);
 }
 
-long int	calculate_power_of_base(char *str, char *base)
+long int	calculate_power_of_base(char *str, char	*base)
 {
 	long int	power;
 
 	power = -1;
 	while ((9 <= *str && *str <= 13) || *str == 32)
-		str++;
+		str ++;
 	while (*str == '-' || *str == '+')
 	{
-		str++;
+		str ++;
 	}
 	while (calcul_value(*str, base) >= 0)
 	{
-		power++;
-		str++;
+		power ++;
+		str ++;
 	}
 	return (power);
 }
@@ -98,8 +98,8 @@ long int	calcul_value(char chiffre, char *base)
 	{
 		if (chiffre == *base)
 			return (i);
-		i++;
-		base++;
+		i ++;
+		base ++;
 	}
 	return (-1);
 }
@@ -116,18 +116,18 @@ int	ft_atoi_base(char *str, char *base)
 	power = calculate_power_of_base(str, base);
 	size = validate_base(base);
 	while ((9 <= *str && *str <= 13) || *str == 32)
-		str++;
+		str ++;
 	while (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign *= -1;
-		str++;
+		str ++;
 	}
 	while (calcul_value(*str, base) && size != 0)
 	{
 		result += calcul_value(*str, base) * ft_recursive_power(size, power);
-		str++;
-		power--;
+		str ++;
+		power --;
 	}
 	return (result * sign);
 }

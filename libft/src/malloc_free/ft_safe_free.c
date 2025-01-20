@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "libft.h"
 
-void	ft_safe_free(void **ptr) {
-  if (ptr && *ptr) {
-    free(*ptr);
-    *ptr = NULL;
-  }
+void	ft_safe_free(void **ptr)
+{
+	if (ptr && *ptr)
+	{
+		free (*ptr);
+		*ptr = NULL;
+	}
 }

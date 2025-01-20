@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
+#include "get_next_line.h"
 
 char	*handle_read_handle(char *next_line)
 {
@@ -27,7 +27,7 @@ char	*handle_read_handle(char *next_line)
 
 char	*handle_read(int fd, char *buffer, char *next_line)
 {
-	int	b_read;
+	int		b_read;
 
 	b_read = 1;
 	while (b_read > 0 && !get_nl(next_line))
@@ -52,8 +52,8 @@ char	*handle_read(int fd, char *buffer, char *next_line)
 
 void	remove_begin(char *buffer)
 {
-	int	i;
-	int	first_nl;
+	int		i;
+	int		first_nl;
 
 	i = 0;
 	first_nl = get_nl(buffer);
@@ -67,7 +67,7 @@ void	remove_begin(char *buffer)
 
 char	*move_buf_nl(char *buffer, char **next_line)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	*next_line = gnl_calloc(sizeof(char), gnl_strlen(buffer) + 1);

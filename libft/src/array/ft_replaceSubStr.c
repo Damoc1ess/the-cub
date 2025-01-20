@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "libft.h"
+
+#include "libft.h"
 
 static void	copy_newval(char *new_s, int *y, char *newval)
 {

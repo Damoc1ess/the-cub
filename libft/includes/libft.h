@@ -13,23 +13,21 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "ft_array.h"
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "get_next_line.h"
+# include "ft_printf.h"
 # include "ft_array_of_strings.h"
+# include "ft_array.h"
 # include "ft_conversions.h"
 # include "ft_error_handling.h"
 # include "ft_files.h"
-# include "ft_linked_lists.h"
 # include "ft_malloc_free.h"
 # include "ft_memory_management.h"
-# include "ft_printf.h"
 # include "ft_printing.h"
-# include "ft_structs.h"
 # include "ft_utils.h"
-# include "get_next_line.h"
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
+# include "ft_structs.h"
+# include "ft_linked_lists.h"
 
 #endif

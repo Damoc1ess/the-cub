@@ -65,38 +65,6 @@ void	init_map(char *file_path, t_cub *cub)
 	print_struct(cub);
 }
 
-// void	init_map(char *map, t_cub *cub)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!map || *map == '\0')
-// 	{
-// 		printf("Error: map is empty or NULL.\n");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	cub->map = ft_split(map, '\n');
-// 	if (!cub->map)
-// 	{
-// 		printf("Error.\nMalloc failed.\n");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	while (cub->map[i])
-// 	{
-// 		printf("%s\n", cub->map[i]);
-// 		i++;
-// 	}
-// 	cub->map_height = i;
-// 	i = 0;
-// 	while (cub->map[i])
-// 	{
-// 		if (cub->map_width < ft_strlen(cub->map[i]))
-// 			cub->map_width = ft_strlen(cub->map[i]);
-// 		i++;
-// 	}
-// 	print_struct(cub);
-// }
-
 void	pars_maps(char *map, t_cub *cub)
 {
 	init_map(map, cub);
