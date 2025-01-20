@@ -27,7 +27,9 @@
 # include "ft_utils.h"
 # include "get_next_line.h"
 # include <stddef.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 
 #endif

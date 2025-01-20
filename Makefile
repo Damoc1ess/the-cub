@@ -8,7 +8,7 @@ NAME = cub3d
 # Répertoires
 SRC_DIR = src
 OBJ_DIR = obj
-LIBFT_DIR = /home/fflamion/other/libft
+LIBFT_DIR = libft
 
 # Fichiers sources et objets
 SRC_FILES = $(shell find $(SRC_DIR) -name '*.c')

@@ -14,6 +14,9 @@
 # define FT_ARRAY_H
 
 # include "libft.h"
+# include <stddef.h>
+# include <stdlib.h>
+# include <string.h>
 
 char	*ft_strjoin_free(char *s1, const char *s2);
 char	**ft_split(char const *s, char c);
@@ -22,7 +25,7 @@ char	*ft_strtok(char *str, const char *sep);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strdup(const char *s);
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

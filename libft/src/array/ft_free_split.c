@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/libft.h"
 #include <stdlib.h>
 
 void	ft_free_split(char **split)

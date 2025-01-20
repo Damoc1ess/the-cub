@@ -1,6 +1,5 @@
 #include "../../include/cub.h"
-#include <fcntl.h>  // Pour open()
-#include <unistd.h> // Pour close()
+#include "../../libft/includes/get_next_line.h"
 
 void	init_map(char *file_path, t_cub *cub)
 {
