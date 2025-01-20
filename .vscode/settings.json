@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "cub.h": "c",
+        "fcntl.h": "c"
+    }
+}

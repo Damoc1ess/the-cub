@@ -1,35 +1,35 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-//Parsing
-void    parsing(int argc, char **argv, t_cub cub);
-void    parse_files(char *argv[1], t_cub cub);
-
 typedef struct s_cub
 {
-    // Textures
-    char *north_texture;  // Chemin de la texture Nord
-    char *south_texture;  // Chemin de la texture Sud
-    char *west_texture;   // Chemin de la texture Ouest
-    char *east_texture;   // Chemin de la texture Est
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	int		floor_color;
+	int		ceiling_color;
+	char	**map;
+	int		map_width;
+	int		map_height;
+	float	player_x;
+	float	player_y;
+	float	player_angle;
+	void	*mlx;
+	void	*window;
+}			t_cub;
 
-    // Couleurs
-    int floor_color;      // Couleur du sol (en hexadécimal : 0xRRGGBB)
-    int ceiling_color;    // Couleur du plafond (en hexadécimal : 0xRRGGBB)
+// Parsing
+void		parsing(int argc, char **argv, t_cub *cub);
 
-    // Carte
-    char **map;           // Tableau 2D représentant la carte
-    int map_width;        // Largeur de la carte
-    int map_height;       // Hauteur de la carte
+// init
+void		init_struct(t_cub *cub);
 
-    // Joueur
-    float player_x;       // Position X du joueur
-    float player_y;       // Position Y du joueur
-    float player_angle;   // Angle de vue du joueur
+// Parsing_utils_1
+int			is_good_extension(char *arg, char *extension);
+int			file_existe(char *file);
+int			is_directory(const char *file);
 
-    // MiniLibX
-    void *mlx;            // Pointeur pour MiniLibX
-    void *window;         // Fenêtre MiniLibX
-} t_cub;
+// Parsing_utils_2
 
 #endif

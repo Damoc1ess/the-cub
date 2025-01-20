@@ -1,5 +1,6 @@
 # Compilation flags
 CFLAGS = -Wall -Wextra -Werror -g -I include -I libft
+# CFLAGS =-g -I include -I libft
 
 # Nom de l'exécutable
 NAME = cub3d
@@ -7,7 +8,7 @@ NAME = cub3d
 # Répertoires
 SRC_DIR = src
 OBJ_DIR = obj
-LIBFT_DIR = libft
+LIBFT_DIR = /home/fflamion/other/libft
 
 # Fichiers sources et objets
 SRC_FILES = $(shell find $(SRC_DIR) -name '*.c')
