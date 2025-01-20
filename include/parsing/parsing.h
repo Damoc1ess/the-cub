@@ -10,8 +10,8 @@ typedef struct s_cub
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
-	int		map_width;
-	int		map_height;
+	size_t	map_width;
+	size_t	map_height;
 	float	player_x;
 	float	player_y;
 	float	player_angle;
@@ -19,17 +19,18 @@ typedef struct s_cub
 	void	*window;
 }			t_cub;
 
-// Parsing
+// parsing
 void		parsing(int argc, char **argv, t_cub *cub);
 
 // init
 void		init_struct(t_cub *cub);
 
-// Parsing_utils_1
-int			is_good_extension(char *arg, char *extension);
-int			file_existe(char *file);
-int			is_directory(const char *file);
+// pars_arg
+void		pars_arg(int argc, char **argv);
 
-// Parsing_utils_2
+// pars_maps
+void		pars_maps(char *map, t_cub *cub);
 
+// debug
+void		print_struct(t_cub *cub);
 #endif

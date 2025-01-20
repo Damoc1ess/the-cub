@@ -1,14 +1,14 @@
 #ifndef CUB3D_h
 # define CUB3D_h
 
-# define BUFFER_SIZE 4028
+// # define BUFFER_SIZE 4028
 # define NORTH "./textures/north.xpm"
 # define SOUTH "./textures/south.xpm"
 # define WEST "./textures/west.xpm"
 # define EAST "./textures/east.xpm"
 
-# include "/home/fflamion/other/libft/libft.h"
-# include "/home/fflamion/other/minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"
 # include <errno.h>
 # include <fcntl.h>

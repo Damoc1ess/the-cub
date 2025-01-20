@@ -13,7 +13,7 @@ void	check_cub(char *arg)
 	}
 }
 
-int	is_good_extension(char *arg, char *extension)
+int	is_good_extension(char *arg)
 {
 	int	i;
 	int	count;
@@ -68,4 +68,28 @@ int	is_directory(const char *file)
 	}
 	close(fd);
 	return (1);
+}
+
+void	pars_arg(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		printf("Error.\nInvalid number of arguments.\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!is_good_extension(argv[1]))
+	{
+		printf("Error.\nInvalid file.\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!file_existe(argv[1]))
+	{
+		printf("Error.\nFile does not exist.\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!is_directory(argv[1]))
+	{
+		printf("Error.\nFile is a directory.\n");
+		exit(EXIT_FAILURE);
+	}
 }
