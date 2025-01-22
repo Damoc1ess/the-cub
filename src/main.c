@@ -6,6 +6,5 @@ int	main(int argc, char **argv)
 
 	init_struct(&cub);
 	parsing(argc, argv, &cub);
-	// print_struct(&cub);
 	return (0);
 }

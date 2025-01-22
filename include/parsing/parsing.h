@@ -20,6 +20,7 @@ typedef struct s_cub
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
+	int		map_start;
 	size_t	map_width;
 	size_t	map_height;
 	float	player_x;
@@ -53,8 +54,12 @@ void		check_player(t_cub *cub);
 void		map_error(char *message, char *info);
 
 // pars_scene
-void		parse_scene(char **map, t_scene *scene);
+void		parse_scene(char **map, t_scene *scene, t_cub *cub);
+
+// init_map
+void		init_map(t_cub *cub);
 
 // debug
 void		print_struct(t_cub *cub);
+void		print_map(t_cub *cub);
 #endif

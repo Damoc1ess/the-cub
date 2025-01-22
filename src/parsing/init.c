@@ -14,6 +14,13 @@ void	init_struct(t_cub *cub)
 	cub->player_x = -1;
 	cub->player_y = -1;
 	cub->player_angle = 0;
+	cub->map_start = 0;
 	cub->mlx = NULL;
 	cub->window = NULL;
+	cub->scene.north_texture = NULL;
+	cub->scene.south_texture = NULL;
+	cub->scene.west_texture = NULL;
+	cub->scene.east_texture = NULL;
+	cub->scene.floor_color = -1;
+	cub->scene.ceiling_color = -1;
 }

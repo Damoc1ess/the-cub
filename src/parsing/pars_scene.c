@@ -1,6 +1,5 @@
 #include "../../include/cub.h"
 
-// Fonction utilitaire : saute les espaces en début de ligne
 char	*skip_spaces(char *line)
 {
 	while (*line && ft_isspace(*line))
@@ -8,7 +7,6 @@ char	*skip_spaces(char *line)
 	return (line);
 }
 
-// Fonction utilitaire : parse une couleur (ex: "220,100,0")
 int	parse_color(char *line)
 {
 	char	*trimmed;
@@ -28,51 +26,93 @@ int	parse_color(char *line)
 	return ((r << 16) | (g << 8) | b); // Combine RGB en un int
 }
 
-// Fonction principale : parse la scène
-void	parse_scene(char **map, t_scene *scene)
+char	*trim_spaces(char *str)
+{
+	char	*start;
+	char	*end;
+	char	*result;
+	size_t	len;
+
+	if (!str)
+		return (NULL);
+	start = str;
+	while (*start && ft_isspace(*start)) // pour les espaces au debut
+		start++;
+	end = start + strlen(start) - 1;
+	while (end > start && ft_isspace(*end)) // pour les espaces a la fin
+		end--;
+	len = end - start + 1;
+	result = malloc(len + 1);
+	if (!result)
+	{
+		perror("Error: malloc failed in trim_spaces");
+		exit(EXIT_FAILURE);
+	}
+	strncpy(result, start, len);
+	result[len] = '\0';
+	return (result);
+}
+
+void	parse_scene(char **map, t_scene *scene, t_cub *cub)
 {
 	int		i;
 	char	*line;
+	char	*trimmed;
 
 	i = 0;
-	// Initialisation de la structure
-	scene->north_texture = NULL;
-	scene->south_texture = NULL;
-	scene->west_texture = NULL;
-	scene->east_texture = NULL;
-	scene->floor_color = -1;
-	scene->ceiling_color = -1;
 	while (map[i])
 	{
 		line = skip_spaces(map[i]);
-		if (strncmp(line, "NO ", 3) == 0)
-			scene->north_texture = strdup(line + 3);
-		else if (strncmp(line, "SO ", 3) == 0)
-			scene->south_texture = strdup(line + 3);
-		else if (strncmp(line, "WE ", 3) == 0)
-			scene->west_texture = strdup(line + 3);
-		else if (strncmp(line, "EA ", 3) == 0)
-			scene->east_texture = strdup(line + 3);
-		else if (strncmp(line, "F ", 2) == 0)
-			scene->floor_color = parse_color(line + 2);
-		else if (strncmp(line, "C ", 2) == 0)
-			scene->ceiling_color = parse_color(line + 2);
-		else if (*line == '1') // Début de la map (lignes de murs)
+		if (ft_strncmp(line, "NO", 2) == 0 && ft_isspace(line[2]))
+		{
+			trimmed = trim_spaces(line + 2);
+			scene->north_texture = strdup(trimmed);
+			free(trimmed);
+		}
+		else if (ft_strncmp(line, "SO", 2) == 0 && ft_isspace(line[2]))
+		{
+			trimmed = trim_spaces(line + 2);
+			scene->south_texture = strdup(trimmed);
+			free(trimmed);
+		}
+		else if (ft_strncmp(line, "WE", 2) == 0 && ft_isspace(line[2]))
+		{
+			trimmed = trim_spaces(line + 2);
+			scene->west_texture = strdup(trimmed);
+			free(trimmed);
+		}
+		else if (ft_strncmp(line, "EA", 2) == 0 && ft_isspace(line[2]))
+		{
+			trimmed = trim_spaces(line + 2);
+			scene->east_texture = strdup(trimmed);
+			free(trimmed);
+		}
+		else if (ft_strncmp(line, "F", 1) == 0 && ft_isspace(line[1]))
+		{
+			trimmed = trim_spaces(line + 1);
+			scene->floor_color = parse_color(trimmed);
+			free(trimmed);
+		}
+		else if (ft_strncmp(line, "C", 1) == 0 && ft_isspace(line[1]))
+		{
+			trimmed = trim_spaces(line + 1);
+			scene->ceiling_color = parse_color(trimmed);
+			free(trimmed);
+		}
+		else if (*line == '1') // Début de la map
+		{
+			cub->map_start = i;
 			break ;
-		else if (*line != '\0') // Lignes non valides
+		}
+		else if (*line != '\0')
 		{
 			printf("Error: Invalid line in scene: %s\n", line);
 			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
-	// Vérification des éléments obligatoires
 	if (!scene->north_texture || !scene->south_texture || !scene->west_texture
 		|| !scene->east_texture || scene->floor_color == -1
 		|| scene->ceiling_color == -1)
-	{
-		printf("Error: Missing scene elements\n");
-		exit(EXIT_FAILURE);
-	}
-	printf("Scene parsed successfully!\n");
+		map_error("Missing scene information", NULL);
 }

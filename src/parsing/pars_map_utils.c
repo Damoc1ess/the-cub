@@ -46,7 +46,10 @@ void	check_closed_map(t_cub *cub)
 					map_error("Error: Map is not closed.", NULL);
 				if (cub->map[i - 1][j] == ' ' || cub->map[i + 1][j] == ' '
 					|| cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' ')
+				{
+					printf("x = %zu, y = %zu\n", i, j);
 					map_error("Error: Map is not closed.", NULL);
+				}
 			}
 			j++;
 		}

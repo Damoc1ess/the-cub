@@ -44,60 +44,21 @@ void	mapping(char *file_path, t_cub *cub)
 		map_error("Error allocating memory", NULL);
 }
 
-// i = 0;
-// while (cub->map[i])
-// 	i++;
-// cub->map_height = i - 7;
-// i = 0;
-// while (cub->map[i])
-// {
-// 	line_length = ft_strlen(cub->map[i]);
-// 	if (cub->map_width < line_length)
-// 		cub->map_width = line_length;
-// 	i++;
-// }
-// }
-
-// int	parse_color(char *line)
-// {
-// 	char	**colors;
-
-// 	int r, g, b;
-// 	colors = ft_split(line, ',');
-// 	if (!colors || get_2d_array_length(colors) != 3)
-// 		map_error("EInvalid color format", line);
-// 	r = ft_atoi(colors[0]);
-// 	g = ft_atoi(colors[1]);
-// 	b = ft_atoi(colors[2]);
-// 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-// 		map_error("Invalid color value", line);
-// 	ft_free_split(colors);
-// 	return (r << 16 | g << 8 | b);
-// }
-
-void	extract_map(t_cub *cub)
+void	extract_map(t_cub *cub, int start_map)
 {
-	int		i;
-	int		j;
+	size_t	j;
 	char	**map_only;
 
-	i = 0;
-	while (cub->map[i] && (ft_strncmp(cub->map[i], "NO ", 3) == 0
-			|| ft_strncmp(cub->map[i], "SO ", 3) == 0 || ft_strncmp(cub->map[i],
-				"WE ", 3) == 0 || ft_strncmp(cub->map[i], "EA ", 3) == 0
-			|| ft_strncmp(cub->map[i], "F ", 2) == 0 || ft_strncmp(cub->map[i],
-				"C ", 2) == 0 || ft_strlen(cub->map[i]) == 0))
-		i++;
 	j = 0;
-	printf("i + j = %d\n", i + j);
-	while (cub->map[i + j])
+	while (cub->map[start_map + j])
 		j++;
+	cub->map_height = j;
 	map_only = malloc(sizeof(char *) * (j + 1));
 	if (!map_only)
 		map_error("Allocating memory", NULL);
 	j = 0;
-	while (cub->map[i])
-		map_only[j++] = ft_strdup(cub->map[i++]);
+	while (cub->map[start_map])
+		map_only[j++] = ft_strdup(cub->map[start_map++]);
 	map_only[j] = NULL;
 	ft_free_split(cub->map);
 	cub->map = map_only;
@@ -106,9 +67,9 @@ void	extract_map(t_cub *cub)
 void	pars_maps(char *map, t_cub *cub)
 {
 	mapping(map, cub);
-	parse_scene(cub->map, &cub->scene);
-	extract_map(cub);
-	print_struct(cub);
+	parse_scene(cub->map, &cub->scene, cub);
+	extract_map(cub, cub->map_start);
+	init_map(cub);
 	validate_map_lines(cub);
 	check_player(cub);
 	check_closed_map(cub);
