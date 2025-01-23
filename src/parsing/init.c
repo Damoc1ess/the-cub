@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:33:47 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/23 13:13:57 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:13:45 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	init_struct(t_cub *cub)
 {
-	cub->north_texture = strdup(NORTH);
-	cub->south_texture = strdup(SOUTH);
-	cub->west_texture = strdup(WEST);
-	cub->east_texture = strdup(EAST);
+	cub->north_texture = ft_strdup(NORTH);
+	cub->south_texture = ft_strdup(SOUTH);
+	cub->west_texture = ft_strdup(WEST);
+	cub->east_texture = ft_strdup(EAST);
 	cub->floor_color = -1;
 	cub->ceiling_color = -1;
 	cub->map = NULL;

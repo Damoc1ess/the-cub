@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "cub.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "ft_array_of_strings.h": "c"
     }
 }
