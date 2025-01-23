@@ -6,7 +6,7 @@
 /*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:01:36 by mblanc            #+#    #+#             */
-/*   Updated: 2025/01/23 22:37:06 by mblanc           ###   ########.fr       */
+/*   Updated: 2025/01/23 23:10:52 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ int	handle_keypress(int keycode, t_game *game)
 	double move_speed = 0.1; // Vitesse de déplacement
 	double rot_speed = 0.05; // Vitesse de rotation
 	printf("Key pressed: %d\n", keycode);
-	if (keycode == 13) // W
+	if (keycode == 119) // W
 		move_forward(game, move_speed);
-	else if (keycode == 1) // S
+	else if (keycode == 115) // S
 		move_backward(game, move_speed);
-	else if (keycode == 0) // A
+	else if (keycode == 97) // A
 		move_left(game, move_speed);
-	else if (keycode == 2) // D
+	else if (keycode == 100) // D
 		move_right(game, move_speed);
-	else if (keycode == 123) // Flèche gauche
+	else if (keycode == 65363) // Flèche gauche
 		rotate_left(game, rot_speed);
-	else if (keycode == 124) // Flèche droite
+	else if (keycode == 65361) // Flèche droite
 		rotate_right(game, rot_speed);
-	else if (keycode == 53) // Échap
+	else if (keycode == 65307) // Échap
 		close_window(game); // Quitte proprement le jeu
 	// Redessiner la frame après chaque mouvement
 	render_frame(game);
