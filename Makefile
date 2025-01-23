@@ -1,5 +1,5 @@
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g -I include -I libft
+CFLAGS = -Wall -Wextra -Werror -g -I include -I libft -I minilibx -L minilibx -lmlx -lX11 -lXext
 # CFLAGS =-g -I include -I libft
 
 # Nom de l'exécutable
@@ -22,8 +22,10 @@ all: $(NAME)
 
 # Compilation de l'exécutable
 $(NAME): $(OBJS) $(LIBFT_TARGET)
+	@echo "🔧 Building minilibx..."
+	make -C minilibx
 	@echo "🔧 Linking $(NAME)..."
-	gcc $(CFLAGS) $(OBJS) -L $(LIBFT_DIR) -lft -o $(NAME)
+	gcc $(CFLAGS) $(OBJS) -L $(LIBFT_DIR) -lft -L minilibx -lmlx -lX11 -lXext -o $(NAME)
 	@echo "✅ Build complete: $(NAME)"
 
 # Compilation des fichiers objets

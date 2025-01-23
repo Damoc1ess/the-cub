@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:52:26 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/23 08:54:29 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:07:05 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # define EAST "./textures/east.xpm"
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../minilibx/mlx.h"
 # include "parsing/parsing.h"
+# include "mathis.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
