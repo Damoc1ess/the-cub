@@ -6,7 +6,7 @@
 /*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 09:55:00 by mblanc            #+#    #+#             */
-/*   Updated: 2025/01/23 22:05:48 by mblanc           ###   ########.fr       */
+/*   Updated: 2025/01/23 22:34:19 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,13 @@ int			init_window(t_game *game);
 void	render_frame(t_game *game);
 void	draw_sky_and_floor(t_game *game, int sky_color, int floor_color);
 void	init_test_map(t_game *game);
+
+void	rotate_right(t_game *game, double rot_speed);
+void	rotate_left(t_game *game, double rot_speed);
+void	move_right(t_game *game, double move_speed);
+void	move_left(t_game *game, double move_speed);
+void	move_backward(t_game *game, double move_speed);
+void	move_forward(t_game *game, double move_speed);
+int handle_keypress(int keycode, t_game *game);
 
 #endif

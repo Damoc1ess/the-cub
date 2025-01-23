@@ -6,7 +6,7 @@
 /*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:04:39 by mblanc            #+#    #+#             */
-/*   Updated: 2025/01/23 22:07:43 by mblanc           ###   ########.fr       */
+/*   Updated: 2025/01/23 22:19:17 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	init_test_map(t_game *game)
 {
 	static char	*test_map_2[] = {"111111", "100001", "100001", "100001",
 			"111111", NULL};
-	static char	*test_map[] = {"111111111", "100000001", "100100001",
-			"100000001", "111011111", "100000001", "100000001", "111111111",
+	static char	*test_map[] = {"111111111", "100000001", "111111111",
+			"100000001", "110000011", "100000001", "100011101", "111111111",
 			NULL};
 
 	(void)test_map_2;
-	// Exemple de carte minimaliste
+	// Exemple de carte minimalistes
 	// Charger la carte dans le jeu
 	game->map = test_map;
 	game->map_width = 6;  // Largeur de la carte

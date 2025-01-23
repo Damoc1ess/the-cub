@@ -1,0 +1,387 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   drawing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 21:37:48 by mblanc            #+#    #+#             */
+/*   Updated: 2025/01/23 21:48:11 by mblanc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+
+void	put_pixel_to_image(char *data, int x, int y, int color, int line_length,
+		int bpp)
+{
+	int	offset;
+
+	offset = (y * line_length) + (x * (bpp / 8));
+	*(unsigned int *)(data + offset) = color;
+}
+
+void	draw_sky_and_floor(t_game *game, int sky_color, int floor_color)
+{
+	int	offset;
+
+	int x, y;
+	// Créer une nouvelle image et récupérer ses données
+	game->image.img = mlx_new_image(game->mlx.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!game->image.img)
+	{
+		perror("Error: Failed to create image");
+		exit(1);
+	}
+	game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp,
+			&game->image.line_length, &game->image.endian);
+	// Dessiner le ciel
+	for (y = 0; y < SCREEN_HEIGHT / 2; y++)
+	{
+		for (x = 0; x < SCREEN_WIDTH; x++)
+		{
+			offset = y * game->image.line_length + x * (game->image.bpp / 8);
+			*(unsigned int *)(game->image.addr + offset) = sky_color;
+		}
+	}
+	// Dessiner le sol
+	for (y = SCREEN_HEIGHT / 2; y < SCREEN_HEIGHT; y++)
+	{
+		for (x = 0; x < SCREEN_WIDTH; x++)
+		{
+			offset = y * game->image.line_length + x * (game->image.bpp / 8);
+			*(unsigned int *)(game->image.addr + offset) = floor_color;
+		}
+	}
+	// Afficher l'image sur la fenêtre
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->image.img, 0,
+		0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minilibx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 10:01:36 by mblanc            #+#    #+#             */
+/*   Updated: 2025/01/23 22:29:26 by mblanc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+
+int	init_window(t_game *game)
+{
+	game->mlx.mlx = mlx_init();
+	if (!game->mlx.mlx)
+	{
+		perror("Failed to initialize mlx");
+		return (1);
+	}
+	game->mlx.win = mlx_new_window(game->mlx.mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
+			"Cub3D");
+	if (!game->mlx.win)
+	{
+		perror("Failed to create window");
+		return (1);
+	}
+	return (0);
+}
+
+int	handle_events(t_game *game)
+{
+	if (game == NULL || game->mlx.win == NULL || game->mlx.mlx == NULL)
+		return (1);
+	render_frame(game);
+	// Handle window close event
+	// printf("event detected\n");
+	return (0);
+}
+
+int	close_window(t_game *game)
+{
+	if (game == NULL || game->mlx.mlx == NULL || game->mlx.win == NULL)
+		return (1);
+	mlx_destroy_window(game->mlx.mlx, game->mlx.win);
+	mlx_destroy_display(game->mlx.mlx);
+	free(game->mlx.mlx);
+	exit(0);
+}
+
+int	handle_keypress(int keycode, t_game *game)
+{
+	double move_speed = 0.1; // Vitesse de déplacement
+	double rot_speed = 0.05; // Vitesse de rotation
+	if (keycode == 13) // W
+		move_forward(game, move_speed);
+	else if (keycode == 1) // S
+		move_backward(game, move_speed);
+	else if (keycode == 0) // A
+		move_left(game, move_speed);
+	else if (keycode == 2) // D
+		move_right(game, move_speed);
+	else if (keycode == 123) // Flèche gauche
+		rotate_left(game, rot_speed);
+	else if (keycode == 124) // Flèche droite
+		rotate_right(game, rot_speed);
+	else if (keycode == 53) // Échap
+		close_window(game); // Quitte proprement le jeu
+	// Redessiner la frame après chaque mouvement
+	render_frame(game);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouvement.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 22:21:35 by mblanc            #+#    #+#             */
+/*   Updated: 2025/01/23 22:25:56 by mblanc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+
+void	move_forward(t_game *game, double move_speed)
+{
+	double new_x = game->player.x + game->player.dir_x * move_speed;
+	double new_y = game->player.y + game->player.dir_y * move_speed;
+
+	// Vérifie si le joueur peut avancer sans heurter un mur
+	if (game->map[(int)new_x][(int)game->player.y] != '1')
+		game->player.x = new_x;
+	if (game->map[(int)game->player.x][(int)new_y] != '1')
+		game->player.y = new_y;
+}
+void	move_backward(t_game *game, double move_speed)
+{
+	double new_x = game->player.x - game->player.dir_x * move_speed;
+	double new_y = game->player.y - game->player.dir_y * move_speed;
+
+	// Vérifie si le joueur peut reculer sans heurter un mur
+	if (game->map[(int)new_x][(int)game->player.y] != '1')
+		game->player.x = new_x;
+	if (game->map[(int)game->player.x][(int)new_y] != '1')
+		game->player.y = new_y;
+}
+void	move_left(t_game *game, double move_speed)
+{
+	double new_x = game->player.x - game->player.plane_x * move_speed;
+	double new_y = game->player.y - game->player.plane_y * move_speed;
+
+	// Vérifie si le joueur peut se déplacer sans heurter un mur
+	if (game->map[(int)new_x][(int)game->player.y] != '1')
+		game->player.x = new_x;
+	if (game->map[(int)game->player.x][(int)new_y] != '1')
+		game->player.y = new_y;
+}
+void	move_right(t_game *game, double move_speed)
+{
+	double new_x = game->player.x + game->player.plane_x * move_speed;
+	double new_y = game->player.y + game->player.plane_y * move_speed;
+
+	// Vérifie si le joueur peut se déplacer sans heurter un mur
+	if (game->map[(int)new_x][(int)game->player.y] != '1')
+		game->player.x = new_x;
+	if (game->map[(int)game->player.x][(int)new_y] != '1')
+		game->player.y = new_y;
+}
+
+void	rotate_left(t_game *game, double rot_speed)
+{
+	double old_dir_x = game->player.dir_x;
+	double old_plane_x = game->player.plane_x;
+
+	// Mise à jour de la direction
+	game->player.dir_x = game->player.dir_x * cos(rot_speed) - game->player.dir_y * sin(rot_speed);
+	game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y * cos(rot_speed);
+
+	// Mise à jour du plan caméra
+	game->player.plane_x = game->player.plane_x * cos(rot_speed) - game->player.plane_y * sin(rot_speed);
+	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y * cos(rot_speed);
+}
+
+void	rotate_right(t_game *game, double rot_speed)
+{
+	double old_dir_x = game->player.dir_x;
+	double old_plane_x = game->player.plane_x;
+
+	// Mise à jour de la direction
+	game->player.dir_x = game->player.dir_x * cos(-rot_speed) - game->player.dir_y * sin(-rot_speed);
+	game->player.dir_y = old_dir_x * sin(-rot_speed) + game->player.dir_y * cos(-rot_speed);
+
+	// Mise à jour du plan caméra
+	game->player.plane_x = game->player.plane_x * cos(-rot_speed) - game->player.plane_y * sin(-rot_speed);
+	game->player.plane_y = old_plane_x * sin(-rot_speed) + game->player.plane_y * cos(-rot_speed);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 21:56:58 by mblanc            #+#    #+#             */
+/*   Updated: 2025/01/23 22:11:47 by mblanc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+
+void	render_frame(t_game *game)
+{
+	int screen_width = SCREEN_WIDTH;
+	int screen_height = SCREEN_HEIGHT;
+	int x;
+
+	for (x = 0; x < screen_width; x++)
+	{
+		// Calcul de la position et direction du rayon
+		double camera_x = 2 * x / (double)screen_width - 1; // Position du rayon sur l'axe caméra
+		double ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
+		double ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
+
+		// Position initiale sur la carte
+		int map_x = (int)game->player.x;
+		int map_y = (int)game->player.y;
+
+		// Longueur du rayon à partir de sa position initiale
+		double side_dist_x;
+		double side_dist_y;
+
+		// Longueur entre deux intersections avec une ligne de la grille
+		double delta_dist_x = fabs(1 / ray_dir_x);
+		double delta_dist_y = fabs(1 / ray_dir_y);
+		double perp_wall_dist;
+
+		// Direction à prendre (+1 ou -1) et quelle case vérifier
+		int step_x;
+		int step_y;
+
+		// Indique si on a touché un mur ou non
+		int hit = 0;
+		int side;
+
+		// Calcul des distances initiales
+		if (ray_dir_x < 0)
+		{
+			step_x = -1;
+			side_dist_x = (game->player.x - map_x) * delta_dist_x;
+		}
+		else
+		{
+			step_x = 1;
+			side_dist_x = (map_x + 1.0 - game->player.x) * delta_dist_x;
+		}
+		if (ray_dir_y < 0)
+		{
+			step_y = -1;
+			side_dist_y = (game->player.y - map_y) * delta_dist_y;
+		}
+		else
+		{
+			step_y = 1;
+			side_dist_y = (map_y + 1.0 - game->player.y) * delta_dist_y;
+		}
+
+		// DDA : Digital Differential Analysis
+		while (hit == 0)
+		{
+			// Avance au prochain carré
+			if (side_dist_x < side_dist_y)
+			{
+				side_dist_x += delta_dist_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				side_dist_y += delta_dist_y;
+				map_y += step_y;
+				side = 1;
+			}
+			// Vérifie si le rayon a touché un mur
+			if (game->map[map_x][map_y] == '1') hit = 1;
+		}
+
+		// Calcul de la distance projetée sur la caméra
+		if (side == 0)
+			perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
+		else
+			perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;
+
+		// Calcul de la hauteur de la ligne à dessiner
+		int line_height = (int)(screen_height / perp_wall_dist);
+
+		// Calcul des positions de début et de fin de la ligne
+		int draw_start = -line_height / 2 + screen_height / 2;
+		if (draw_start < 0) draw_start = 0;
+		int draw_end = line_height / 2 + screen_height / 2;
+		if (draw_end >= screen_height) draw_end = screen_height - 1;
+
+		// Couleur du mur (modifiez en fonction du côté)
+		int color = (side == 0) ? 0xFFFFFF : 0xAAAAAA;
+
+		// Dessine la ligne (mur) sur l'écran
+		for (int y = draw_start; y <= draw_end; y++)
+		{
+			int offset = y * game->image.line_length + x * (game->image.bpp / 8);
+			*(unsigned int *)(game->image.addr + offset) = color;
+		}
+	}
+
+	// Affiche l'image dans la fenêtre
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->image.img, 0, 0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 22:04:39 by mblanc            #+#    #+#             */
+/*   Updated: 2025/01/23 22:19:17 by mblanc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+#include <stdlib.h>
+
+void	init_test_map(t_game *game)
+{
+	static char	*test_map_2[] = {"111111", "100001", "100001", "100001",
+			"111111", NULL};
+	static char	*test_map[] = {"111111111", "100000001", "111111111",
+			"100000001", "110000011", "100000001", "100011101", "111111111",
+			NULL};
+
+	(void)test_map_2;
+	// Exemple de carte minimalistes
+	// Charger la carte dans le jeu
+	game->map = test_map;
+	game->map_width = 6;  // Largeur de la carte
+	game->map_height = 5; // Hauteur de la carte
+	// Initialiser la position du joueur
+	game->player.x = 2.5; // Position X du joueur (centre d'une case)
+	game->player.y = 2.5; // Position Y du joueur (centre d'une case)
+	game->player.dir_x = 1.0;
+	// Direction initiale du joueur (vers la droite)
+	game->player.dir_y = 0.0;    // Pas de composante verticale
+	game->player.plane_x = 0.0;  // Plan caméra pour le champ de vision
+	game->player.plane_y = 0.66; // Largeur du champ de vision (~FOV 66 degrés)
+	// Initialiser l'image pour dessiner
+	game->image.img = mlx_new_image(game->mlx.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!game->image.img)
+	{
+		perror("Failed to create an image");
+		exit(EXIT_FAILURE);
+	}
+	game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp,
+			&game->image.line_length, &game->image.endian);
+	// Dessiner le premier cadre
+	render_frame(game);
+}

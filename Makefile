@@ -1,6 +1,6 @@
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g -I include -I libft -I minilibx -L minilibx -lmlx -lX11 -lXext
-# CFLAGS =-g -I include -I libft
+CFLAGS = -Wall -Wextra -Werror -g -I include -I libft -I minilibx
+LDFLAGS = -L minilibx -lmlx -L libft -lft -lX11 -lXext -lm
 
 # Nom de l'exécutable
 NAME = cub3d
@@ -25,12 +25,12 @@ $(NAME): $(OBJS) $(LIBFT_TARGET)
 	@echo "🔧 Building minilibx..."
 	make -C minilibx
 	@echo "🔧 Linking $(NAME)..."
-	gcc $(CFLAGS) $(OBJS) -L $(LIBFT_DIR) -lft -L minilibx -lmlx -lX11 -lXext -o $(NAME)
+	gcc $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "✅ Build complete: $(NAME)"
 
 # Compilation des fichiers objets
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@mkdir -p $(@D) # Crée le répertoire parent pour l'objet
+	@mkdir -p $(@D)
 	@echo "🔨 Compiling $<..."
 	gcc $(CFLAGS) -c $< -o $@
 
