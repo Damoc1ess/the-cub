@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:29:46 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:29:48 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:02:41 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void	extract_map(t_cub *cub, int start_map)
 void	pars_maps(char *map, t_cub *cub)
 {
 	mapping(map, cub);
-	parse_scene(cub->map, &cub->scene, cub);
-	extract_map(cub, cub->map_start);
+	parse_scene(cub->map, &cub->scene);
+	extract_map(cub, 6);
 	init_map(cub);
 	validate_map_lines(cub);
 	check_player(cub);
 	check_closed_map(cub);
+	validate_scene_textures(&cub->scene);
 }

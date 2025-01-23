@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:34:04 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:34:05 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:26:39 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*trim_spaces(char *str)
 	return (result);
 }
 
-void	parse_scene(char **map, t_scene *scene, t_cub *cub)
+void	parse_scene(char **map, t_scene *scene)
 {
 	int		i;
 	char	*line;
@@ -112,10 +112,7 @@ void	parse_scene(char **map, t_scene *scene, t_cub *cub)
 			free(trimmed);
 		}
 		else if (*line == '1') // Début de la map
-		{
-			cub->map_start = i;
 			break ;
-		}
 		else if (*line != '\0')
 		{
 			printf("Error: Invalid line in scene: %s\n", line);

@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:33:47 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:33:48 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:13:57 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	init_struct(t_cub *cub)
 	cub->player_x = -1;
 	cub->player_y = -1;
 	cub->player_angle = 0;
-	cub->map_start = 0;
 	cub->mlx = NULL;
 	cub->window = NULL;
 	cub->scene.north_texture = NULL;
