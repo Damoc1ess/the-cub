@@ -1,7 +1,18 @@
-#ifndef CUB3D_h
-# define CUB3D_h
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 08:52:26 by fflamion          #+#    #+#             */
+/*   Updated: 2025/01/23 08:54:29 by fflamion         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// # define BUFFER_SIZE 4028
+#ifndef CUB_H
+# define CUB_H
+
 # define NORTH "./textures/north.xpm"
 # define SOUTH "./textures/south.xpm"
 # define WEST "./textures/west.xpm"

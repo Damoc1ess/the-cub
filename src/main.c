@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:34:15 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:34:15 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_cub	cub;
+	t_map	cub;
 
 	init_struct(&cub);
 	parsing(argc, argv, &cub);

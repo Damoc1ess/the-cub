@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:34:04 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:34:05 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*trim_spaces(char *str)
 	return (result);
 }
 
-void	parse_scene(char **map, t_scene *scene, t_cub *cub)
+void	parse_scene(char **map, t_scene *scene, t_map *cub)
 {
 	int		i;
 	char	*line;

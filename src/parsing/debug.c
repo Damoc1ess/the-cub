@@ -6,13 +6,13 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:33:40 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:33:41 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-void	print_map(t_cub *cub)
+void	print_map(t_map *cub)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	print_scene(t_scene *scene)
 	printf("ceiling_color: %d\n", scene->ceiling_color);
 }
 
-void	print_struct(t_cub *cub)
+void	print_struct(t_map *cub)
 {
 	printf("north_texture: %s\n", cub->north_texture);
 	printf("south_texture: %s\n", cub->south_texture);

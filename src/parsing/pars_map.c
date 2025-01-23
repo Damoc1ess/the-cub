@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:29:46 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:29:48 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 09:11:23 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../libft/includes/ft_array_of_strings.h"
 #include "../../libft/includes/get_next_line.h"
 
-void	mapping(char *file_path, t_cub *cub)
+void	mapping(char *file_path, t_map *cub)
 {
 	int		fd;
 	char	*line;
@@ -56,11 +56,12 @@ void	mapping(char *file_path, t_cub *cub)
 		map_error("Error allocating memory", NULL);
 }
 
-void	extract_map(t_cub *cub, int start_map)
+void	extract_map(t_map *cub, int start_map)
 {
 	size_t	j;
 	char	**map_only;
 
+	printf("start_map: %d\n", start_map);
 	j = 0;
 	while (cub->map[start_map + j])
 		j++;
@@ -76,7 +77,7 @@ void	extract_map(t_cub *cub, int start_map)
 	cub->map = map_only;
 }
 
-void	pars_maps(char *map, t_cub *cub)
+void	pars_maps(char *map, t_map *cub)
 {
 	mapping(map, cub);
 	parse_scene(cub->map, &cub->scene, cub);

@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:32:24 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:33:56 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_valid_map_char(char c)
 	return (0);
 }
 
-void	validate_map_lines(t_cub *cub)
+void	validate_map_lines(t_map *cub)
 {
 	size_t	i;
 	size_t	j;
@@ -39,7 +39,7 @@ void	validate_map_lines(t_cub *cub)
 	}
 }
 
-void	check_closed_map(t_cub *cub)
+void	check_closed_map(t_map *cub)
 {
 	size_t	i;
 	size_t	j;
@@ -69,7 +69,7 @@ void	check_closed_map(t_cub *cub)
 	}
 }
 
-void	check_player(t_cub *cub)
+void	check_player(t_map *cub)
 {
 	size_t	i;
 	size_t	j;

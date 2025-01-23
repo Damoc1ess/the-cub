@@ -6,13 +6,13 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:33:44 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/22 22:33:44 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-void	init_map(t_cub *cub)
+void	init_map(t_map *cub)
 {
 	size_t	map_width;
 	int		i;

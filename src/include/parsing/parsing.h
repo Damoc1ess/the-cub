@@ -17,20 +17,20 @@ typedef struct s_cub
 	float	player_angle;
 	void	*mlx;
 	void	*window;
-}			t_cub;
+}			t_map;
 
 // parsing
-void		parsing(int argc, char **argv, t_cub *cub);
+void		parsing(int argc, char **argv, t_map *cub);
 
 // init
-void		init_struct(t_cub *cub);
+void		init_struct(t_map *cub);
 
 // pars_arg
 void		pars_arg(int argc, char **argv);
 
 // pars_maps
-void		pars_maps(char *map, t_cub *cub);
+void		pars_maps(char *map, t_map *cub);
 
 // debug
-void		print_struct(t_cub *cub);
+void		print_struct(t_map *cub);
 #endif
