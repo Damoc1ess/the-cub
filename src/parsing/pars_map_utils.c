@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:32:24 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/23 14:34:00 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/24 09:21:27 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	validate_map_lines(t_cub *cub)
 		while (cub->map[i][j])
 		{
 			if (!is_valid_map_char(cub->map[i][j]))
-				map_error("Invalid character in map", NULL);
+				map_error("Invalid character in map", NULL, cub);
 			j++;
 		}
 		i++;
@@ -55,12 +55,12 @@ void	check_closed_map(t_cub *cub)
 			{
 				if (i == 0 || i == cub->map_height - 1 || j == 0
 					|| j == cub->map_width - 1)
-					map_error("Error: Map is not closed.", NULL);
+					map_error("Error: Map is not closed.", NULL, cub);
 				if (cub->map[i - 1][j] == ' ' || cub->map[i + 1][j] == ' '
 					|| cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' ')
 				{
 					printf("x = %zu, y = %zu\n", i, j);
-					map_error("Error: Map is not closed.", NULL);
+					map_error("Error: Map is not closed.", NULL, cub);
 				}
 			}
 			j++;

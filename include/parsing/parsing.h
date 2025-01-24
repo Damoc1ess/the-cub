@@ -50,10 +50,10 @@ void		check_closed_map(t_cub *cub);
 void		check_player(t_cub *cub);
 
 // pars_map_utils2
-void		map_error(char *message, char *info);
+void		map_error(char *message, char *info, t_cub *cub);
 
 // pars_scene
-void		parse_scene(char **map, t_scene *scene);
+void		parse_scene(t_cub *cub);
 
 // init_map
 void		init_map(t_cub *cub);
@@ -65,5 +65,8 @@ void		validate_scene_textures(t_scene *scene);
 void		print_struct(t_cub *cub);
 void		print_map(t_cub *cub);
 void		print_scene(t_scene *scene);
+
+// free
+void		free_cub(t_cub *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:29:46 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/23 17:02:41 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/24 09:21:10 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	mapping(char *file_path, t_cub *cub)
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-		map_error("Error opening file", file_path);
+		map_error("Error opening file", file_path, cub);
 	map_content = ft_strdup("");
 	if (!map_content)
 	{
 		close(fd);
-		map_error("Error allocating memory", NULL);
+		map_error("Error allocating memory", NULL, cub);
 	}
 	while ((line = get_next_line(fd)) != NULL)
 	{
@@ -40,7 +40,7 @@ void	mapping(char *file_path, t_cub *cub)
 		if (!map_content)
 		{
 			close(fd);
-			map_error("Error allocating memory", NULL);
+			map_error("Error allocating memory", NULL, cub);
 		}
 	}
 	close(fd);
@@ -53,7 +53,7 @@ void	mapping(char *file_path, t_cub *cub)
 	cub->map = ft_split(map_content, '\n');
 	free(map_content);
 	if (!cub->map)
-		map_error("Error allocating memory", NULL);
+		map_error("Error allocating memory", NULL, cub);
 }
 
 void	extract_map(t_cub *cub, int start_map)
@@ -67,7 +67,7 @@ void	extract_map(t_cub *cub, int start_map)
 	cub->map_height = j;
 	map_only = malloc(sizeof(char *) * (j + 1));
 	if (!map_only)
-		map_error("Allocating memory", NULL);
+		map_error("Allocating memory", NULL, cub);
 	j = 0;
 	while (cub->map[start_map])
 		map_only[j++] = ft_strdup(cub->map[start_map++]);
@@ -79,7 +79,7 @@ void	extract_map(t_cub *cub, int start_map)
 void	pars_maps(char *map, t_cub *cub)
 {
 	mapping(map, cub);
-	parse_scene(cub->map, &cub->scene);
+	parse_scene(cub);
 	extract_map(cub, 6);
 	init_map(cub);
 	validate_map_lines(cub);

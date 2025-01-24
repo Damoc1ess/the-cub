@@ -1,7 +1,7 @@
 #include "../../include/cub.h"
 #include "../../libft/includes/ft_array.h"
 
-void	free_cup(t_cub *cub)
+void	free_cub(t_cub *cub)
 {
 	if (cub->north_texture)
 		free(cub->north_texture);
