@@ -6,7 +6,7 @@
 /*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:01:36 by mblanc            #+#    #+#             */
-/*   Updated: 2025/01/23 23:10:52 by mblanc           ###   ########.fr       */
+/*   Updated: 2025/01/25 12:06:22 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,26 @@ int	close_window(t_game *game)
 
 int	handle_keypress(int keycode, t_game *game)
 {
-	double move_speed = 0.1; // Vitesse de déplacement
-	double rot_speed = 0.05; // Vitesse de rotation
+	double	move_speed;
+	double	rot_speed;
+
+	move_speed = 0.1;
+	rot_speed = 0.05;
 	printf("Key pressed: %d\n", keycode);
-	if (keycode == 119) // W
+	if (keycode == KEY_UP)
 		move_forward(game, move_speed);
-	else if (keycode == 115) // S
+	else if (keycode == KEY_DOWN)
 		move_backward(game, move_speed);
-	else if (keycode == 97) // A
+	else if (keycode == KEY_LEFT)
 		move_left(game, move_speed);
-	else if (keycode == 100) // D
+	else if (keycode == KEY_RIGHT)
 		move_right(game, move_speed);
-	else if (keycode == 65363) // Flèche gauche
+	else if (keycode == ARROW_LEFT)
 		rotate_left(game, rot_speed);
-	else if (keycode == 65361) // Flèche droite
+	else if (keycode == ARROW_RIGHT)
 		rotate_right(game, rot_speed);
-	else if (keycode == 65307) // Échap
-		close_window(game); // Quitte proprement le jeu
-	// Redessiner la frame après chaque mouvement
+	else if (keycode == KEY_ESC)
+		close_window(game);
 	render_frame(game);
 	return (0);
 }

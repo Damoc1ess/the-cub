@@ -6,7 +6,7 @@
 /*   By: mblanc <mblanc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 09:55:00 by mblanc            #+#    #+#             */
-/*   Updated: 2025/01/23 22:34:19 by mblanc           ###   ########.fr       */
+/*   Updated: 2025/01/25 12:39:02 by mblanc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # include <string.h>
 # include <unistd.h>
 /* Définitions des touches (codes pour clavier AZERTY ou QWERTY) */
-# define KEY_ESC 53
-# define KEY_UP 13
-# define KEY_DOWN 1
-# define KEY_LEFT 0
-# define KEY_RIGHT 2
-# define ARROW_LEFT 123
-# define ARROW_RIGHT 124
+# define KEY_ESC 65307
+# define KEY_UP 119
+# define KEY_DOWN 115
+# define KEY_LEFT 97
+# define KEY_RIGHT 100
+# define ARROW_LEFT 65363
+# define ARROW_RIGHT 65361
 
 /* Paramètres généraux */
 # define SCREEN_WIDTH 1024
@@ -93,19 +93,42 @@ typedef struct s_game
 	t_image image;       // Image principale pour le dessin (ciel/sol)
 }			t_game;
 
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	double	camera;
+	double	dist;
+	int		grid_x;
+	int		grid_y;
+	int		step_x;
+	int		step_y;
+	int		found_wall;
+}			t_ray;
+
 int			close_window(t_game *game);
 int			handle_events(t_game *game);
 int			init_window(t_game *game);
-void	render_frame(t_game *game);
-void	draw_sky_and_floor(t_game *game, int sky_color, int floor_color);
-void	init_test_map(t_game *game);
 
-void	rotate_right(t_game *game, double rot_speed);
-void	rotate_left(t_game *game, double rot_speed);
-void	move_right(t_game *game, double move_speed);
-void	move_left(t_game *game, double move_speed);
-void	move_backward(t_game *game, double move_speed);
-void	move_forward(t_game *game, double move_speed);
-int handle_keypress(int keycode, t_game *game);
+void		render_frame(t_game *game);
+void		draw_column(t_game *game, int x, double dist, int side, int sh);
+double		init_and_dda(t_game *game, int x, int sw, int *side_ptr);
+void		cast_rays(t_game *game);
+void		create_image(t_game *game);
+
+void		draw_sky_and_floor(t_game *game, int sky_color, int floor_color);
+void		init_test_map(t_game *game);
+
+void		rotate_right(t_game *game, double rot_speed);
+void		rotate_left(t_game *game, double rot_speed);
+void		move_right(t_game *game, double move_speed);
+void		move_left(t_game *game, double move_speed);
+void		move_backward(t_game *game, double move_speed);
+void		move_forward(t_game *game, double move_speed);
+int			handle_keypress(int keycode, t_game *game);
 
 #endif
