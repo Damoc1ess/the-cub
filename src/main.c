@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	cub;
+	t_cub	cub;
 
 	init_struct(&cub);
 	parsing(argc, argv, &cub);
