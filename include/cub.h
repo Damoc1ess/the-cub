@@ -11,7 +11,7 @@
 # define MAX_HEIGHT 10
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+// # include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"
 # include <errno.h>
 # include <fcntl.h>

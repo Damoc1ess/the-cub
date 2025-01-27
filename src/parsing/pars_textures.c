@@ -44,7 +44,7 @@ void	check_xpm_size(const char *texture_path)
 		map_error("Error: Failed to open texture file.", NULL, NULL);
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (line[0] == '"' && !found_dimensions)
+		if (ft_strchr(line, '"') && !found_dimensions)
 		{
 			cleaned_line = remove_quotes(line);
 			if (!cleaned_line)
@@ -61,7 +61,7 @@ void	check_xpm_size(const char *texture_path)
 				close(fd);
 				map_error("Error: Allocation memory failed.", NULL, NULL);
 			}
-			if (tokens[0] && tokens[1])
+			if (tokens[0] && tokens[1] && ft_isdigit(tokens[0][0]) && ft_isdigit(tokens[1][0]))
 			{
 				width = ft_atoi(tokens[0]);
 				height = ft_atoi(tokens[1]);
@@ -81,15 +81,6 @@ void	check_xpm_size(const char *texture_path)
 			ft_free_split(tokens);
 		}
 		free(line);
-		if (found_dimensions)
-			break ;
-	}
-	close(fd);
-	if (!found_dimensions)
-	{
-		printf("Erreur: Impossible de trouver les dimensions de la texture XPM \"%s\".\n",
-			texture_path);
-		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	if (!found_dimensions)
