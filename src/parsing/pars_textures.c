@@ -65,12 +65,8 @@ void	check_xpm_size(const char *texture_path)
 			{
 				width = ft_atoi(tokens[0]);
 				height = ft_atoi(tokens[1]);
-				printf("Texture XPM \"%s\" size: %dx%d\n", texture_path, width,
-					height);
 				if (width > 64 || height > 64)
 				{
-					printf("Erreur: La texture XPM \"%s\" est trop grande (%dx%d). La taille maximale autorisée est 64x64.\n",
-						texture_path, width, height);
 					ft_free_split(tokens);
 					free(line);
 					close(fd);
@@ -107,7 +103,6 @@ void	validate_texture(const char *texture_path, const char *identifier)
 		exit(EXIT_FAILURE);
 	}
 	close(fd);
-	printf("Texture %s: %s\n", identifier, texture_path);
 	check_xpm_size(texture_path);
 }
 
