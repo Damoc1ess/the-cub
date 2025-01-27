@@ -6,11 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:32:24 by fflamion          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
-=======
 /*   Updated: 2025/01/25 19:05:58 by fflamion         ###   ########.fr       */
->>>>>>> flo
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +81,10 @@ void	check_player(t_cub *cub)
 {
 	size_t	i;
 	size_t	j;
+	int		player_count;
 
 	i = 0;
-	j = 0;
+	player_count = 0;
 	while (i < cub->map_height)
 	{
 		j = 0;
@@ -96,11 +93,22 @@ void	check_player(t_cub *cub)
 			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S'
 				|| cub->map[i][j] == 'E' || cub->map[i][j] == 'W')
 			{
+				player_count++;
 				cub->player_x = j + 0.5;
 				cub->player_y = i + 0.5;
+				if (cub->map[i][j] == 'N')
+					cub->player_angle = 270;
+				else if (cub->map[i][j] == 'S')
+					cub->player_angle = 90;
+				else if (cub->map[i][j] == 'E')
+					cub->player_angle = 0;
+				else if (cub->map[i][j] == 'W')
+					cub->player_angle = 180;
 			}
 			j++;
 		}
 		i++;
 	}
+	if (player_count != 1)
+		map_error("Error: Map must have exactly one player.", NULL, cub);
 }
