@@ -1,4 +1,3 @@
-R 500 500
 NO tests/textures/wall.xpm
 SO tests/textures/bricks.xpm
 WE tests/textures/gold.xpm

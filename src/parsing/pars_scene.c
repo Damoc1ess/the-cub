@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:34:04 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/24 09:23:20 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:36:41 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ void	parse_scene(t_cub *cub)
 			break ;
 		else if (*line != '\0')
 		{
-			map_error("Invalid line in scene", line, cub);
-			printf("Error: Invalid line in scene: %s\n", line);
+			map_error("Invalid line in scene", NULL, cub);
 			exit(EXIT_FAILURE);
 		}
 		i++;

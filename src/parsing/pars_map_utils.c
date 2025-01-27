@@ -6,7 +6,7 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:32:24 by fflamion          #+#    #+#             */
-/*   Updated: 2025/01/24 09:21:27 by fflamion         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:05:58 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	validate_map_lines(t_cub *cub)
 	}
 }
 
+int	check_around(t_cub *cub, size_t i, size_t j)
+{
+	if (cub->map[i - 1][j] == ' ' || cub->map[i + 1][j] == ' ' || cub->map[i][j
+		- 1] == ' ' || cub->map[i][j + 1] == ' ' || cub->map[i - 1][j] == '\0'
+		|| cub->map[i + 1][j] == '\0' || cub->map[i][j - 1] == '\0'
+		|| cub->map[i][j + 1] == '\0')
+		return (1);
+	return (0);
+}
+
 void	check_closed_map(t_cub *cub)
 {
 	size_t	i;
@@ -56,8 +66,7 @@ void	check_closed_map(t_cub *cub)
 				if (i == 0 || i == cub->map_height - 1 || j == 0
 					|| j == cub->map_width - 1)
 					map_error("Error: Map is not closed.", NULL, cub);
-				if (cub->map[i - 1][j] == ' ' || cub->map[i + 1][j] == ' '
-					|| cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' ')
+				if (check_around(cub, i, j))
 				{
 					printf("x = %zu, y = %zu\n", i, j);
 					map_error("Error: Map is not closed.", NULL, cub);
