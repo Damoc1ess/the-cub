@@ -6,7 +6,11 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:33:40 by fflamion          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
+=======
+/*   Updated: 2025/01/23 13:13:57 by fflamion         ###   ########.fr       */
+>>>>>>> flo
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +54,5 @@ void	print_struct(t_map *cub)
 	printf("player_x: %f\n", cub->player_x);
 	printf("player_y: %f\n", cub->player_y);
 	printf("player_angle: %f\n", cub->player_angle);
-	printf("map_start: %d\n", cub->map_start);
 	print_scene(&cub->scene);
 }

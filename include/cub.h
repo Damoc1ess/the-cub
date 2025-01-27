@@ -18,6 +18,9 @@
 # define WEST "./textures/west.xpm"
 # define EAST "./textures/east.xpm"
 
+# define MAX_WIDTH 10
+# define MAX_HEIGHT 10
+
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"

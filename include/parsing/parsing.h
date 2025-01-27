@@ -34,7 +34,6 @@ typedef struct s_map
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
-	int		map_start;
 	size_t	map_width;
 	size_t	map_height;
 	float	player_x;
@@ -65,15 +64,32 @@ void		check_closed_map(t_map *cub);
 void		check_player(t_map *cub);
 
 // pars_map_utils2
-void		map_error(char *message, char *info);
+void		map_error(char *message, char *info, t_cub *cub);
 
 // pars_scene
+<<<<<<< HEAD
 void		parse_scene(char **map, t_scene *scene, t_map *cub);
+=======
+void		parse_scene(t_cub *cub);
+>>>>>>> flo
 
 // init_map
 void		init_map(t_map *cub);
 
+// aprs_texture
+void		validate_scene_textures(t_scene *scene);
+
 // debug
+<<<<<<< HEAD
 void		print_struct(t_map *cub);
 void		print_map(t_map *cub);
+=======
+void		print_struct(t_cub *cub);
+void		print_map(t_cub *cub);
+void		print_scene(t_scene *scene);
+
+// free
+void		free_cub(t_cub *cub);
+
+>>>>>>> flo
 #endif

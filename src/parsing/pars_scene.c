@@ -6,7 +6,11 @@
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:34:04 by fflamion          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
+=======
+/*   Updated: 2025/01/25 14:36:41 by fflamion         ###   ########.fr       */
+>>>>>>> flo
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,66 +69,67 @@ char	*trim_spaces(char *str)
 	return (result);
 }
 
+<<<<<<< HEAD
 void	parse_scene(char **map, t_scene *scene, t_map *cub)
+=======
+void	parse_scene(t_cub *cub)
+>>>>>>> flo
 {
 	int		i;
 	char	*line;
 	char	*trimmed;
 
 	i = 0;
-	while (map[i])
+	while (cub->map[i])
 	{
-		line = skip_spaces(map[i]);
+		line = skip_spaces(cub->map[i]);
 		if (ft_strncmp(line, "NO", 2) == 0 && ft_isspace(line[2]))
 		{
 			trimmed = trim_spaces(line + 2);
-			scene->north_texture = strdup(trimmed);
+			cub->scene.north_texture = strdup(trimmed);
 			free(trimmed);
 		}
 		else if (ft_strncmp(line, "SO", 2) == 0 && ft_isspace(line[2]))
 		{
 			trimmed = trim_spaces(line + 2);
-			scene->south_texture = strdup(trimmed);
+			cub->scene.south_texture = strdup(trimmed);
 			free(trimmed);
 		}
 		else if (ft_strncmp(line, "WE", 2) == 0 && ft_isspace(line[2]))
 		{
 			trimmed = trim_spaces(line + 2);
-			scene->west_texture = strdup(trimmed);
+			cub->scene.west_texture = strdup(trimmed);
 			free(trimmed);
 		}
 		else if (ft_strncmp(line, "EA", 2) == 0 && ft_isspace(line[2]))
 		{
 			trimmed = trim_spaces(line + 2);
-			scene->east_texture = strdup(trimmed);
+			cub->scene.east_texture = strdup(trimmed);
 			free(trimmed);
 		}
 		else if (ft_strncmp(line, "F", 1) == 0 && ft_isspace(line[1]))
 		{
 			trimmed = trim_spaces(line + 1);
-			scene->floor_color = parse_color(trimmed);
+			cub->scene.floor_color = parse_color(trimmed);
 			free(trimmed);
 		}
 		else if (ft_strncmp(line, "C", 1) == 0 && ft_isspace(line[1]))
 		{
 			trimmed = trim_spaces(line + 1);
-			scene->ceiling_color = parse_color(trimmed);
+			cub->scene.ceiling_color = parse_color(trimmed);
 			free(trimmed);
 		}
 		else if (*line == '1') // Début de la map
-		{
-			cub->map_start = i;
 			break ;
-		}
 		else if (*line != '\0')
 		{
-			printf("Error: Invalid line in scene: %s\n", line);
+			map_error("Invalid line in scene", NULL, cub);
 			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
-	if (!scene->north_texture || !scene->south_texture || !scene->west_texture
-		|| !scene->east_texture || scene->floor_color == -1
-		|| scene->ceiling_color == -1)
-		map_error("Missing scene information", NULL);
+	if (!cub->scene.north_texture || !cub->scene.south_texture
+		|| !cub->scene.west_texture || !cub->scene.east_texture
+		|| cub->scene.floor_color == -1 || cub->scene.ceiling_color == -1)
+		map_error("Missing scene information", NULL, cub);
 }
