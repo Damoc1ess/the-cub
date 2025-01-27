@@ -5,18 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fflamion <fflamion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 22:33:47 by fflamion          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/23 08:59:30 by fflamion         ###   ########.fr       */
-=======
-/*   Updated: 2025/01/23 17:13:45 by fflamion         ###   ########.fr       */
->>>>>>> flo
+/*   Created: 2025/01/23 08:53:57 by fflamion          #+#    #+#             */
+/*   Updated: 2025/01/23 09:22:57 by fflamion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-void	init_struct(t_map *cub)
+void	init_scene(t_scene *scene)
+{
+	scene->north_texture = NULL;
+	scene->south_texture = NULL;
+	scene->west_texture = NULL;
+	scene->east_texture = NULL;
+	scene->floor_color = -1;
+	scene->ceiling_color = -1;
+}
+
+void	init_struct(t_cub *cub)
 {
 	cub->north_texture = ft_strdup(NORTH);
 	cub->south_texture = ft_strdup(SOUTH);
@@ -32,10 +38,5 @@ void	init_struct(t_map *cub)
 	cub->player_angle = 0;
 	cub->mlx = NULL;
 	cub->window = NULL;
-	cub->scene.north_texture = NULL;
-	cub->scene.south_texture = NULL;
-	cub->scene.west_texture = NULL;
-	cub->scene.east_texture = NULL;
-	cub->scene.floor_color = -1;
-	cub->scene.ceiling_color = -1;
+	init_scene(&cub->scene);
 }

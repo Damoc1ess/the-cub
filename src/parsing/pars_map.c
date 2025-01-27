@@ -19,7 +19,7 @@
 #include "../../libft/includes/ft_array_of_strings.h"
 #include "../../libft/includes/get_next_line.h"
 
-void	mapping(char *file_path, t_map *cub)
+void	mapping(char *file_path, t_cub *cub)
 {
 	int		fd;
 	char	*line;
@@ -60,7 +60,7 @@ void	mapping(char *file_path, t_map *cub)
 		map_error("Error allocating memory", NULL, cub);
 }
 
-void	extract_map(t_map *cub, int start_map)
+void	extract_map(t_cub *cub, int start_map)
 {
 	size_t	j;
 	char	**map_only;
@@ -81,7 +81,7 @@ void	extract_map(t_map *cub, int start_map)
 	cub->map = map_only;
 }
 
-void	pars_maps(char *map, t_map *cub)
+void	pars_maps(char *map, t_cub *cub)
 {
 	mapping(map, cub);
 	parse_scene(cub);

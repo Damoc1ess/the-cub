@@ -69,11 +69,7 @@ char	*trim_spaces(char *str)
 	return (result);
 }
 
-<<<<<<< HEAD
-void	parse_scene(char **map, t_scene *scene, t_map *cub)
-=======
 void	parse_scene(t_cub *cub)
->>>>>>> flo
 {
 	int		i;
 	char	*line;

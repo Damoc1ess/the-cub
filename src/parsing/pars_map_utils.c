@@ -24,7 +24,7 @@ int	is_valid_map_char(char c)
 	return (0);
 }
 
-void	validate_map_lines(t_map *cub)
+void	validate_map_lines(t_cub *cub)
 {
 	size_t	i;
 	size_t	j;
@@ -43,9 +43,6 @@ void	validate_map_lines(t_map *cub)
 	}
 }
 
-<<<<<<< HEAD
-void	check_closed_map(t_map *cub)
-=======
 int	check_around(t_cub *cub, size_t i, size_t j)
 {
 	if (cub->map[i - 1][j] == ' ' || cub->map[i + 1][j] == ' ' || cub->map[i][j
@@ -57,13 +54,11 @@ int	check_around(t_cub *cub, size_t i, size_t j)
 }
 
 void	check_closed_map(t_cub *cub)
->>>>>>> flo
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	j = 0;
 	while (i < cub->map_height)
 	{
 		j = 0;
@@ -86,7 +81,7 @@ void	check_closed_map(t_cub *cub)
 	}
 }
 
-void	check_player(t_map *cub)
+void	check_player(t_cub *cub)
 {
 	size_t	i;
 	size_t	j;

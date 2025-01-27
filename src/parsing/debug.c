@@ -16,43 +16,43 @@
 
 #include "../../include/cub.h"
 
-void	print_map(t_map *cub)
+void	print_scene(t_scene *scene)
+{
+	printf("Scene:\n");
+	printf("North texture: %s\n", scene->north_texture);
+	printf("South texture: %s\n", scene->south_texture);
+	printf("West texture: %s\n", scene->west_texture);
+	printf("East texture: %s\n", scene->east_texture);
+	printf("Floor color: %d\n", scene->floor_color);
+	printf("Ceiling color: %d\n", scene->ceiling_color);
+}
+
+void	print_map(t_cub *cub)
 {
 	int	i;
 
 	i = 0;
+	printf("\nMap:\n");
 	while (cub->map[i])
 	{
 		printf("%s\n", cub->map[i]);
 		i++;
 	}
-	printf("map_width: %ld\n", cub->map_width);
-	printf("map_height: %ld\n", cub->map_height);
+	printf("\nMap width: %zu\n", cub->map_width);
+	printf("Map height: %zu\n", cub->map_height);
+	printf("Player position: (%f, %f)\n", cub->player_x, cub->player_y);
+	printf("Player angle: %f\n", cub->player_angle);
 }
 
-void	print_scene(t_scene *scene)
+void	print_struct(t_cub *cub)
 {
-	printf("north_texture: %s\n", scene->north_texture);
-	printf("south_texture: %s\n", scene->south_texture);
-	printf("west_texture: %s\n", scene->west_texture);
-	printf("east_texture: %s\n", scene->east_texture);
-	printf("floor_color: %d\n", scene->floor_color);
-	printf("ceiling_color: %d\n", scene->ceiling_color);
-}
-
-void	print_struct(t_map *cub)
-{
-	printf("north_texture: %s\n", cub->north_texture);
-	printf("south_texture: %s\n", cub->south_texture);
-	printf("west_texture: %s\n", cub->west_texture);
-	printf("east_texture: %s\n", cub->east_texture);
-	printf("floor_color: %d\n", cub->floor_color);
-	printf("ceiling_color: %d\n", cub->ceiling_color);
+	printf("\nCub3D structure:\n");
+	printf("North texture: %s\n", cub->north_texture);
+	printf("South texture: %s\n", cub->south_texture);
+	printf("West texture: %s\n", cub->west_texture);
+	printf("East texture: %s\n", cub->east_texture);
+	printf("Floor color: %d\n", cub->floor_color);
+	printf("Ceiling color: %d\n", cub->ceiling_color);
 	print_map(cub);
-	printf("map_width: %ld\n", cub->map_width);
-	printf("map_height: %ld\n", cub->map_height);
-	printf("player_x: %f\n", cub->player_x);
-	printf("player_y: %f\n", cub->player_y);
-	printf("player_angle: %f\n", cub->player_angle);
 	print_scene(&cub->scene);
 }

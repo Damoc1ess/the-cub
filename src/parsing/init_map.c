@@ -12,7 +12,7 @@
 
 #include "../../include/cub.h"
 
-void	init_map(t_map *cub)
+void	init_map(t_cub *cub)
 {
 	size_t	map_width;
 	int		i;
